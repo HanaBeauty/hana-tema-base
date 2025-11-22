@@ -113,6 +113,10 @@
         "essential_upsell_app_block_haC6t6": {
           "type": "shopify://apps/essential-upsell/blocks/app-block/50627fd9-24fd-4250-8614-accc12826d80",
           "settings": {}
+        },
+        "essential_countdown_app_block_722378e8": {
+          "type": "shopify://apps/essential-countdown-timer/blocks/app-block/722378e8-5a70-4eae-aa89-9e44e8e9f6de",
+          "settings": {}
         }
       },
       "block_order": [
@@ -121,6 +125,7 @@
         "judge_me_reviews_preview_badge_fpadGQ",
         "collapsible_tab_pg8Wjy",
         "price",
+        "essential_countdown_app_block_722378e8",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",

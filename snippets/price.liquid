@@ -35,6 +35,17 @@
     assign money_price_max = price_max | money_with_currency
   endif
 
+  assign base_price = compare_at_price | default: price
+  if hana_discount_percent == blank
+    assign discount_percent = 0
+    if base_price > price
+      assign diff = base_price | minus: price
+      assign discount_percent = diff | times: 100 | divided_by: base_price | round
+    endif
+  else
+    assign discount_percent = hana_discount_percent
+  endif
+
   if target == product and product.price_varies
     assign money_price = 'products.product.price.from_price_html' | t: price: money_price
   endif
@@ -116,6 +127,12 @@
       <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
         {{ 'products.product.on_sale' | t }}
       </span>
+
+      {%- if discount_percent > 0 -%}
+        <span class="hana-discount-pill">
+          -{{ discount_percent }}%
+        </span>
+      {%- endif -%}
 
       <span class="badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}">
         {{ 'products.product.sold_out' | t }}
