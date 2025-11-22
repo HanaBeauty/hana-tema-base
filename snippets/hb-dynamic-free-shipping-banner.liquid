@@ -1,0 +1,264 @@
+{%- comment -%}
+HANA BEAUTY • Banner Dinâmico de Frete Grátis por Região/Estado
+- Ambiente: hana-tema-base/main (tema de testes)
+- Regras oficiais:
+  SP:  R$ 99,00
+  Sudeste (RJ, MG, ES): R$ 199,00
+  Sul (RS, SC, PR): R$ 259,00
+  Centro-Oeste (GO, MT, MS, DF): R$ 459,00
+  Norte/Nordeste (demais UFs listadas): R$ 529,00
+- Sem cálculo de frete por CEP na PDP; frete é confirmado no checkout.
+{%- endcomment -%}
+
+{%- assign v = product.selected_or_first_available_variant -%}
+
+<div id="hana-frete" class="hana-frete" role="status" aria-live="polite">
+  <div class="hana-frete__row">
+    <svg class="hana-frete__icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 6h11v8H3zM14 9h3l3 3v2h-6zM5 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm12 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path>
+    </svg>
+
+    <div class="hana-frete__text">
+      <div class="hana-frete__badge">Frete</div>
+
+      <div class="hana-frete__headline">
+        Frete grátis para
+        <span id="hana-frete-region">sua região</span>
+        em pedidos a partir de
+        <strong><span id="hana-frete-min">—</span></strong>
+      </div>
+
+      <div class="hana-frete__status" id="hana-frete-status" hidden></div>
+
+      <div class="hana-frete__helper">
+        O valor e o prazo exatos são calculados automaticamente no checkout, após você informar seu endereço.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ==== Helpers ====
+  const moneyBR = v =>
+    new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v / 100);
+
+  const productPriceCents = {{ v.price | default: 0 | json }};
+
+  // Mínimos por estado/região (centavos)
+  const STATE_THRESHOLDS = {
+    "SP": 9900 // São Paulo
+  };
+
+  const REGION_THRESHOLDS = {
+    "Sudeste": 19900,
+    "Sul": 25900,
+    "Centro-Oeste": 45900,
+    "Norte/Nordeste": 52900
+  };
+
+  const sudeste = ['SP','RJ','MG','ES'];
+  const sul = ['RS','SC','PR'];
+  const centro = ['GO','MT','MS','DF'];
+  const norteNordeste = ['AC','AP','AM','PA','RO','RR','TO','AL','BA','CE','MA','PB','PE','PI','RN','SE'];
+
+  const $region = document.getElementById('hana-frete-region');
+  const $min    = document.getElementById('hana-frete-min');
+  const $status = document.getElementById('hana-frete-status');
+  const $root   = document.getElementById('hana-frete');
+
+  if (!$root || !$region || !$min || !$status) return;
+
+  function getCartTotal(){
+    return fetch('/cart.js', { credentials: 'same-origin' })
+      .then(r => r.ok ? r.json() : { total_price: 0 })
+      .then(cart => cart.total_price || 0)
+      .catch(() => 0);
+  }
+
+  function detectUFAndRegion(){
+    return fetch('https://ipapi.co/json/')
+      .then(r => r.json())
+      .then(d => {
+        const uf = String(d.region_code || '').toUpperCase();
+        let region = 'Sudeste';
+        if (sudeste.includes(uf)) region = 'Sudeste';
+        else if (sul.includes(uf)) region = 'Sul';
+        else if (centro.includes(uf)) region = 'Centro-Oeste';
+        else if (norteNordeste.includes(uf)) region = 'Norte/Nordeste';
+        return { uf, region };
+      })
+      .catch(() => ({ uf: 'SP', region: 'Sudeste' })); // fallback plausível
+  }
+
+  function updateUI(labelRegion, minCents, qualifies, diffCents){
+    $region.textContent = labelRegion;
+    $min.textContent = moneyBR(minCents);
+
+    if (qualifies){
+      $status.hidden = false;
+      $status.className = 'hana-frete__status ok';
+      $status.textContent = 'Seu pedido já garante frete grátis para essa região.';
+    } else {
+      $status.hidden = false;
+      $status.className = 'hana-frete__status warn';
+      $status.textContent = 'Faltam ' + moneyBR(diffCents) + ' para você garantir frete grátis.';
+    }
+  }
+
+  Promise.all([detectUFAndRegion(), getCartTotal()]).then(([geo, cartTotal]) => {
+    const uf = geo.uf;
+    const region = geo.region;
+
+    let labelRegion = region;
+    let minCents;
+
+    if (STATE_THRESHOLDS[uf]) {
+      labelRegion = 'São Paulo';
+      minCents = STATE_THRESHOLDS[uf];
+    } else {
+      minCents = REGION_THRESHOLDS[region] || REGION_THRESHOLDS['Sudeste'];
+    }
+
+    const basis = (cartTotal && cartTotal > 0) ? cartTotal : (productPriceCents || 0);
+    const qualifies = basis >= minCents;
+    const diff = qualifies ? 0 : Math.max(minCents - basis, 0);
+
+    updateUI(labelRegion, minCents, qualifies, diff);
+  });
+})();
+</script>
+
+<style>
+/* ===== Banner de Frete Hana Beauty – contraste e tipografia ajustados ===== */
+.hana-frete{
+  border:1px solid #e4e4e7;
+  background:#f9fafb;
+  border-radius:16px;
+  padding:16px;
+  box-shadow:0 2px 10px rgba(0,0,0,.03);
+  color:#111827;
+  font-size:0.95rem;
+}
+
+.hana-frete__row{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+}
+
+.hana-frete__icon{
+  width:24px;
+  height:24px;
+  flex:0 0 24px;
+  fill:#bf1b5a;
+  margin-top:2px;
+}
+
+.hana-frete__text{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.hana-frete__badge{
+  display:inline-block;
+  background:#fdf2f8;
+  color:#be185d;
+  border:1px solid #f9a8d4;
+  padding:3px 10px;
+  border-radius:9999px;
+  font-weight:700;
+  font-size:12px;
+  letter-spacing:.02em;
+  width:max-content;
+}
+
+/* Headline: informação principal do card */
+.hana-frete__headline{
+  font-size:1.02rem;
+  line-height:1.4;
+  font-weight:600;
+  color:#111827;
+}
+
+/* Status: aviso de já ter ou não frete grátis */
+.hana-frete__status{
+  margin-top:6px;
+  font-size:0.95rem;
+  font-weight:600;
+}
+
+.hana-frete__status.ok{
+  color:#166534;
+  background:#dcfce7;
+  border:1px solid #86efac;
+  padding:4px 10px;
+  border-radius:999px;
+  width:max-content;
+}
+
+.hana-frete__status.warn{
+  color:#854d0e;
+  background:#fef3c7;
+  border:1px solid #facc15;
+  padding:4px 10px;
+  border-radius:999px;
+  width:max-content;
+}
+
+/* Linha auxiliar: secundária, mas legível */
+.hana-frete__helper{
+  margin-top:4px;
+  font-size:0.84rem;
+  color:#4b5563;
+}
+
+/* Ajuste mobile */
+@media (max-width: 480px){
+  .hana-frete{
+    padding:14px;
+    border-radius:14px;
+  }
+  .hana-frete__headline{
+    font-size:1.02rem;
+  }
+  .hana-frete__status{
+    font-size:0.95rem;
+  }
+}
+
+/* Versão em contexto Black November (tema escuro) */
+.bn-theme .hana-frete{
+  background:#020617;
+  border-color:#27272a;
+  box-shadow:0 2px 12px rgba(0,0,0,.45);
+  color:#f9fafb;
+}
+
+.bn-theme .hana-frete__badge{
+  background:rgba(239,68,111,0.12);
+  color:#fecaca;
+  border-color:rgba(248,113,113,0.35);
+}
+
+.bn-theme .hana-frete__icon{
+  fill:#fecaca;
+}
+
+.bn-theme .hana-frete__status.ok{
+  color:#bbf7d0;
+  background:rgba(22,163,74,0.25);
+  border-color:rgba(74,222,128,0.45);
+}
+
+.bn-theme .hana-frete__status.warn{
+  color:#fde68a;
+  background:rgba(245,158,11,0.23);
+  border-color:rgba(251,191,36,0.45);
+}
+
+.bn-theme .hana-frete__helper{
+  color:#9ca3af;
+}
+</style>
