@@ -130,20 +130,23 @@ HANA BEAUTY • Banner Dinâmico de Frete Grátis por Região/Estado
 </script>
 
 <style>
+/* ===== Banner de Frete Hana Beauty – contraste e tipografia ajustados ===== */
 .hana-frete{
-  border:1px solid #e5e5e5;
-  background:#ffffff;
+  border:1px solid #e4e4e7;
+  background:#f9fafb;
   border-radius:16px;
   padding:16px;
-  box-shadow:0 2px 10px rgba(0,0,0,.04);
-  color:#373737;
+  box-shadow:0 2px 10px rgba(0,0,0,.03);
+  color:#111827;
   font-size:0.95rem;
 }
+
 .hana-frete__row{
   display:flex;
   align-items:flex-start;
   gap:12px;
 }
+
 .hana-frete__icon{
   width:24px;
   height:24px;
@@ -151,16 +154,18 @@ HANA BEAUTY • Banner Dinâmico de Frete Grátis por Região/Estado
   fill:#bf1b5a;
   margin-top:2px;
 }
+
 .hana-frete__text{
   display:flex;
   flex-direction:column;
   gap:4px;
 }
+
 .hana-frete__badge{
   display:inline-block;
-  background:#f9e8ee;
-  color:#bf1b5a;
-  border:1px solid #f3cddb;
+  background:#fdf2f8;
+  color:#be185d;
+  border:1px solid #f9a8d4;
   padding:3px 10px;
   border-radius:9999px;
   font-weight:700;
@@ -168,46 +173,92 @@ HANA BEAUTY • Banner Dinâmico de Frete Grátis por Região/Estado
   letter-spacing:.02em;
   width:max-content;
 }
+
+/* Headline: informação principal do card */
 .hana-frete__headline{
-  font-size:0.98rem;
-  line-height:1.35;
+  font-size:1.02rem;
+  line-height:1.4;
+  font-weight:600;
+  color:#111827;
 }
+
+/* Status: aviso de já ter ou não frete grátis */
 .hana-frete__status{
-  margin-top:4px;
-  font-size:0.9rem;
+  margin-top:6px;
+  font-size:0.95rem;
   font-weight:600;
 }
+
 .hana-frete__status.ok{
-  color:#1f8a3a;
-  background:#f0fff4;
-  border:1px solid #c9f1d3;
-  padding:4px 8px;
+  color:#166534;
+  background:#dcfce7;
+  border:1px solid #86efac;
+  padding:4px 10px;
   border-radius:999px;
   width:max-content;
 }
+
 .hana-frete__status.warn{
-  color:#8a6a00;
-  background:#fff8e6;
-  border:1px solid #ffe2a9;
-  padding:4px 8px;
+  color:#854d0e;
+  background:#fef3c7;
+  border:1px solid #facc15;
+  padding:4px 10px;
   border-radius:999px;
   width:max-content;
 }
+
+/* Linha auxiliar: secundária, mas legível */
 .hana-frete__helper{
   margin-top:4px;
-  font-size:0.82rem;
-  color:#6b7280;
+  font-size:0.84rem;
+  color:#4b5563;
 }
+
+/* Ajuste mobile */
 @media (max-width: 480px){
   .hana-frete{
     padding:14px;
     border-radius:14px;
   }
   .hana-frete__headline{
-    font-size:0.98rem;
+    font-size:1.02rem;
   }
   .hana-frete__status{
-    font-size:0.9rem;
+    font-size:0.95rem;
   }
+}
+
+/* Versão em contexto Black November (tema escuro) */
+.bn-theme .hana-frete{
+  background:#020617;
+  border-color:#27272a;
+  box-shadow:0 2px 12px rgba(0,0,0,.45);
+  color:#f9fafb;
+}
+
+.bn-theme .hana-frete__badge{
+  background:rgba(239,68,111,0.12);
+  color:#fecaca;
+  border-color:rgba(248,113,113,0.35);
+}
+
+.bn-theme .hana-frete__icon{
+  fill:#fecaca;
+}
+
+.bn-theme .hana-frete__status.ok{
+  color:#bbf7d0;
+  background:rgba(22,163,74,0.25);
+  border-color:rgba(74,222,128,0.45);
+}
+
+.bn-theme .hana-frete__status.warn{
+  color:#fde68a;
+  background:rgba(245,158,11,0.23);
+  border-color:rgba(251,191,36,0.45);
+}
+
+.bn-theme .hana-frete__helper{
+  color:#9ca3af;
 }
 </style>
