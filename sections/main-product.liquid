@@ -86,14 +86,18 @@
           class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
-          {%- comment -%} HB: aviso de frete controlado por presença de calculadora {%- endcomment -%}
-          {%- assign has_shipping_calc = false -%}
+          {%- comment -%} HB: aviso de frete controlado por presença de calculadora ou banner dinâmico {%- endcomment -%}
+          {%- assign has_shipping_info = false -%}
           {%- for shipping_block in section.blocks -%}
             {%- if shipping_block.type == 'shipping_estimator'
               or shipping_block.type == 'shipping-calculator'
               or shipping_block.type == 'estimate_shipping'
             -%}
-              {%- assign has_shipping_calc = true -%}
+              {%- assign has_shipping_info = true -%}
+            {%- elsif shipping_block.type == 'custom_liquid'
+              and shipping_block.settings.custom_liquid contains 'hb-dynamic-free-shipping-banner'
+            -%}
+              {%- assign has_shipping_info = true -%}
             {%- endif -%}
           {%- endfor -%}
 
@@ -141,7 +145,7 @@
                   </div>
                 {%- endif -%}
                 {%- if product.requires_shipping -%}
-                  {%- unless has_shipping_calc -%}
+                  {%- unless has_shipping_info -%}
                     {%- if shop.shipping_policy.body != blank -%}
                       <div class="product__tax caption rte" data-shipping-note>
                         {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
