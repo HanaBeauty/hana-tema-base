@@ -123,3 +123,56 @@
   color: #fecaca;
   border: 1px solid rgba(248, 113, 113, 0.45);
 }
+
+/* PDP price hierarchy */
+.template-product .product__info-wrapper .price {
+  font-size: 1.4rem;
+}
+
+.template-product .price-item--regular {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.template-product .price-item--sale {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.template-product .hana-discount-pill {
+  margin-left: 8px;
+}
+
+.template-product .hana-price-savings {
+  margin-top: 4px;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #16a34a;
+}
+
+.bn-theme .hana-price-savings {
+  color: #bbf7d0;
+}
+
+.template-product .hana-essential-countdown {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(250, 204, 21, 0.08);
+  color: #facc15;
+  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.template-product .hana-essential-countdown span {
+  font-weight: 500;
+}
+
+.bn-theme .hana-essential-countdown {
+  background: rgba(250, 204, 21, 0.12);
+  color: #fef9c3;
+}

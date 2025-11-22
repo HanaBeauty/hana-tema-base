@@ -55,6 +55,15 @@
     <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
 
+  {%- assign current_variant = product.selected_or_first_available_variant -%}
+  {%- assign base_price = current_variant.compare_at_price | default: current_variant.price -%}
+  {%- assign sale_price = current_variant.price -%}
+  {%- assign hb_discount_percent = 0 -%}
+  {%- if base_price > sale_price -%}
+    {%- assign diff = base_price | minus: sale_price -%}
+    {%- assign hb_discount_percent = diff | times: 100 | divided_by: base_price | round -%}
+  {%- endif -%}
+
   {%- assign first_3d_model = product.media | where: 'media_type', 'model' | first -%}
   {%- if first_3d_model -%}
     {{ 'component-product-model.css' | asset_url | stylesheet_tag }}
@@ -78,6 +87,11 @@
   <div class="page-width">
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
       <div class="grid__item product__media-wrapper">
+        {%- if hb_discount_percent > 0 -%}
+          <div class="hana-discount-badge-media">
+            -{{ hb_discount_percent }}%
+          </div>
+        {%- endif -%}
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
       <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -104,7 +118,14 @@
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               {%- when '@app' -%}
-                {% render block %}
+                {%- assign is_essential_countdown = block.type contains 'essential-countdown' -%}
+                {%- if is_essential_countdown -%}
+                  <div class="hana-essential-countdown" {{ block.shopify_attributes }}>
+                    {% render block %}
+                  </div>
+                {%- else -%}
+                  {% render block %}
+                {%- endif -%}
               {%- when 'text' -%}
                 <p
                   class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
@@ -122,9 +143,15 @@
                     product: product,
                     use_variant: true,
                     show_badges: true,
-                    price_class: 'price--large'
+                    price_class: 'price--large',
+                    hana_discount_percent: hb_discount_percent
                   -%}
                 </div>
+                {%- if hb_discount_percent > 0 -%}
+                  <p class="hana-price-savings">
+                    Você economiza {{ hb_discount_percent }}% nesta Black November.
+                  </p>
+                {%- endif -%}
                 {% if shop.currency == 'BRL' %}
                   {% render 'hb-price-benefits-product', product: product %}
                 {% endif %}

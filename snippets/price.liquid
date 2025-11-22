@@ -36,10 +36,14 @@
   endif
 
   assign base_price = compare_at_price | default: price
-  assign discount_percent = 0
-  if base_price > price
-    assign diff = base_price | minus: price
-    assign discount_percent = diff | times: 100 | divided_by: base_price | round
+  if hana_discount_percent == blank
+    assign discount_percent = 0
+    if base_price > price
+      assign diff = base_price | minus: price
+      assign discount_percent = diff | times: 100 | divided_by: base_price | round
+    endif
+  else
+    assign discount_percent = hana_discount_percent
   endif
 
   if target == product and product.price_varies
