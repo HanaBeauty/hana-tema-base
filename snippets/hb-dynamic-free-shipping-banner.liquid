@@ -13,28 +13,21 @@ HANA BEAUTY • Banner Dinâmico de Frete Grátis por Região/Estado
 {%- assign v = product.selected_or_first_available_variant -%}
 
 <div id="hana-frete" class="hana-frete" role="status" aria-live="polite">
-  <div class="hana-frete__row">
-    <svg class="hana-frete__icon" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M3 6h11v8H3zM14 9h3l3 3v2h-6zM5 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm12 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path>
-    </svg>
+  <div class="hana-frete__badge">Frete</div>
 
-    <div class="hana-frete__text">
-      <div class="hana-frete__badge">Frete</div>
+  <p class="hana-frete__headline">
+    Frete grátis para
+    <strong><span id="hana-frete-region">sua região</span></strong>
+    em pedidos a partir de
+    <strong><span id="hana-frete-min">—</span></strong>.
+  </p>
 
-      <div class="hana-frete__headline">
-        Frete grátis para
-        <span id="hana-frete-region">sua região</span>
-        em pedidos a partir de
-        <strong><span id="hana-frete-min">—</span></strong>
-      </div>
+  <p class="hana-frete__status" id="hana-frete-status" hidden></p>
 
-      <div class="hana-frete__status" id="hana-frete-status" hidden></div>
-
-      <div class="hana-frete__helper">
-        O valor e o prazo exatos são calculados automaticamente no checkout, após você informar seu endereço.
-      </div>
-    </div>
-  </div>
+  <p class="hana-frete__helper">
+    O valor e o prazo exatos são calculados automaticamente no checkout,
+    após você informar seu endereço.
+  </p>
 </div>
 
 <script>
@@ -130,37 +123,17 @@ HANA BEAUTY • Banner Dinâmico de Frete Grátis por Região/Estado
 </script>
 
 <style>
-/* ===== Banner de Frete Hana Beauty – Premium Black November ===== */
+/* ===== Banner de Frete Hana Beauty – Premium Black November (sem ícone) ===== */
 .hana-frete{
   border:1px solid #e4e4e7;
   background:#f9fafb;
   border-radius:16px;
-  padding:16px;
+  padding:16px 16px 12px;
   box-shadow:0 2px 10px rgba(0,0,0,.04);
   color:#111827;
   font-size:0.97rem;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
-}
-
-.hana-frete__row{
-  display:flex;
-  align-items:flex-start;
-  gap:12px;
-}
-
-.hana-frete__icon{
-  width:24px;
-  height:24px;
-  flex:0 0 24px;
-  fill:#bf1b5a;
-  margin-top:2px;
-}
-
-.hana-frete__text{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
 }
 
 .hana-frete__badge{
@@ -173,11 +146,12 @@ HANA BEAUTY • Banner Dinâmico de Frete Grátis por Região/Estado
   font-weight:700;
   font-size:12px;
   letter-spacing:.02em;
-  width:max-content;
+  margin-bottom:6px;
 }
 
 /* Headline: informação principal do card */
 .hana-frete__headline{
+  margin:0;
   font-size:1.06rem;
   line-height:1.45;
   font-weight:600;
@@ -187,6 +161,7 @@ HANA BEAUTY • Banner Dinâmico de Frete Grátis por Região/Estado
 /* Status: já tem ou não frete grátis */
 .hana-frete__status{
   margin-top:6px;
+  margin-bottom:0;
   font-size:0.98rem;
   font-weight:600;
 }
@@ -209,27 +184,27 @@ HANA BEAUTY • Banner Dinâmico de Frete Grátis por Região/Estado
   width:max-content;
 }
 
-/* Linha auxiliar: explicação do cálculo no checkout */
+/* Linha auxiliar */
 .hana-frete__helper{
-  margin-top:4px;
+  margin-top:6px;
   font-size:0.9rem;
   color:#4b5563;
 }
 
-/* MOBILE: reforçar legibilidade no smartphone */
+/* MOBILE: foco total em leitura */
 @media (max-width: 640px){
   .hana-frete{
     padding:14px 14px 12px;
     border-radius:14px;
-    font-size:1rem;          /* base ~16px+ */
+    font-size:1rem;
   }
 
   .hana-frete__headline{
-    font-size:1.12rem;       /* ~18px */
+    font-size:1.12rem;   /* ~18px */
   }
 
   .hana-frete__status{
-    font-size:1.02rem;       /* ~16,5–17px */
+    font-size:1.02rem;   /* ~16,5–17px */
   }
 
   .hana-frete__helper{
@@ -249,10 +224,6 @@ HANA BEAUTY • Banner Dinâmico de Frete Grátis por Região/Estado
   background:rgba(239,68,111,0.12);
   color:#fecaca;
   border-color:rgba(248,113,113,0.45);
-}
-
-.bn-theme .hana-frete__icon{
-  fill:#fecaca;
 }
 
 .bn-theme .hana-frete__status.ok{
