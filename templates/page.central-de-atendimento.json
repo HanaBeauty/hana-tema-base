@@ -1,1 +1,36 @@
-{"sections":{"central-hana":{"type":"central-de-atendimento","settings":{"title":"Central Hana de Atendimento & Consultoria Técnica","subtitle":"Estamos aqui para ajudar você e sua equipe com agilidade e precisão."}}},"order":["central-hana"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "central-hana": {
+      "type": "central-de-atendimento",
+      "disabled": true,
+      "settings": {
+        "title": "Central Hana de Atendimento & Consultoria Técnica",
+        "subtitle": "Estamos aqui para ajudar você e sua equipe com agilidade e precisão."
+      }
+    },
+    "page_9NPNtd": {
+      "type": "page",
+      "name": "t:sections.page.presets.name",
+      "settings": {
+        "page": "central-de-atendimento",
+        "heading_size": "h1",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "central-hana",
+    "page_9NPNtd"
+  ]
+}
