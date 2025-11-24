@@ -3740,3 +3740,26 @@ details-disclosure > details {
   }
 }
 
+/* HB – Ajuste de espaçamento descrição de coleções */
+body.template-collection #shopify-section-rich_text_rU6fJR .rich-text__text.rte p {
+  margin-bottom: 0.75rem;
+}
+
+body.template-collection #shopify-section-rich_text_rU6fJR .rich-text__text.rte ul {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+body.template-collection #shopify-section-rich_text_rU6fJR .rich-text__text.rte li {
+  margin-bottom: 0.4rem;
+}
+
+body.template-collection #shopify-section-rich_text_rU6fJR .rich-text__text.rte li p {
+  margin-bottom: 0;
+}
+
+body.template-collection #shopify-section-rich_text_rU6fJR .rich-text__text.rte hr {
+  margin: 1.5rem 0;
+  opacity: 0.4;
+}
+
