@@ -21,7 +21,7 @@
             "heading_size": "h1",
             "subheading": "",
             "button_label": "",
-            "link": "shopify://products/adesivo-etil-amlash-para-extensao-de-cilios-5ml",
+            "link": "shopify://collections/adesivos-e-removedores",
             "button_style_secondary": false,
             "show_text_box": false,
             "box_align": "middle-center",
@@ -116,7 +116,7 @@
       "custom_css": [],
       "settings": {
         "layout": "full_bleed",
-        "slide_height": "small",
+        "slide_height": "adapt_image",
         "slider_visual": "dots",
         "auto_rotate": true,
         "change_slides_speed": 5,
