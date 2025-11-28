@@ -12,24 +12,6 @@
     "slideshow_TenFGX": {
       "type": "slideshow",
       "blocks": {
-        "slide_ncnfbU": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/gere-um-banner-de-black-november-com-o-fundo-na-cor-0a0a0a-e-a-cor-do-texto-em-c8a96a.png",
-            "image_overlay_opacity": 0,
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "",
-            "link": "https://www.hanabeauty.com.br/discount/BLACKNOVEMBER25",
-            "button_style_secondary": false,
-            "show_text_box": false,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": "scheme-1"
-          }
-        },
         "slide_pbJmtt": {
           "type": "slide",
           "settings": {
@@ -40,6 +22,24 @@
             "subheading": "",
             "button_label": "",
             "link": "shopify://products/adesivo-etil-amlash-para-extensao-de-cilios-5ml",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-1"
+          }
+        },
+        "slide_ncnfbU": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/gere-um-banner-de-black-november-com-o-fundo-na-cor-0a0a0a-e-a-cor-do-texto-em-c8a96a.png",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "https://www.hanabeauty.com.br/discount/BLACKNOVEMBER25",
             "button_style_secondary": false,
             "show_text_box": false,
             "box_align": "middle-center",
@@ -107,8 +107,8 @@
         }
       },
       "block_order": [
-        "slide_ncnfbU",
         "slide_pbJmtt",
+        "slide_ncnfbU",
         "slide_k3JRLb",
         "slide_rGPiVd",
         "slide_U7web4"
@@ -120,7 +120,7 @@
         "slider_visual": "dots",
         "auto_rotate": true,
         "change_slides_speed": 5,
-        "image_behavior": "ambient",
+        "image_behavior": "none",
         "show_text_below": false,
         "accessibility_info": ""
       }
