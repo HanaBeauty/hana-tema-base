@@ -115,8 +115,8 @@
       ],
       "custom_css": [],
       "settings": {
-        "layout": "grid",
-        "slide_height": "medium",
+        "layout": "full_bleed",
+        "slide_height": "small",
         "slider_visual": "dots",
         "auto_rotate": true,
         "change_slides_speed": 5,
