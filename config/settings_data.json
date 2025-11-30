@@ -278,6 +278,16 @@
           "api_base_url": "https://ai-agent.chizy.io",
           "app_url": "https://chatbot.chizy.io"
         }
+      },
+      "15247839323734551960": {
+        "type": "shopify://apps/salepify-gifts-upsell/blocks/cart-goal.embed/f616e94d-36ae-45cb-9d98-57804196c7a7",
+        "disabled": false,
+        "settings": {}
+      },
+      "15714838451323730227": {
+        "type": "shopify://apps/salepify-gifts-upsell/blocks/advanced-free-gift/f616e94d-36ae-45cb-9d98-57804196c7a7",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
